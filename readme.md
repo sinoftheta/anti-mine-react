@@ -8,6 +8,9 @@ yarn install
 ```bash
 yarn dev
 ```
+```bash
+git remote remove origin
+```
 ## References (in order)
 - https://webpack.js.org/guides/getting-started/
 - https://www.robinwieruch.de/webpack-babel-setup-tutorial
