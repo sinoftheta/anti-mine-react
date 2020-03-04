@@ -1,17 +1,13 @@
-# Portfolio Page
+# React-Redux-Boilerplate
 
-Version 1.0 - 1/8/2020
+My personal boilerplate
 
-## Frameworks & Tools Used
-- Webpack               - Javascript Bundler
-- Webpack Dev Server    - Development Tool 
-- React                 - UI Framework
-- Redux                 - Global State Container
-- Bootstrap             - CSS framework (todo: update ro react-bootstrap)
-- Yarn                  - Package Manager
-- Jest (future)         - Unit Testing
-
-
+```bash
+yarn install
+```
+```bash
+yarn dev
+```
 ## References (in order)
 - https://webpack.js.org/guides/getting-started/
 - https://www.robinwieruch.de/webpack-babel-setup-tutorial
