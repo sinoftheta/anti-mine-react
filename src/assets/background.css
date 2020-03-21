@@ -1,0 +1,35 @@
+body{
+    margin: 0px;
+    overflow: hidden;
+}
+#background-checkers{ /* checkers are 4 by 4 px*/
+    position: absolute;
+    background-image: url('./checker.png');
+    height: calc(100vh + 20px);
+    width: calc(100vw + 30px);
+    animation-name: checkerScroll;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    z-index: -20;
+}
+@keyframes checkerScroll{
+    0% {
+        top:-15px;
+        left:-25px;
+    }
+    100%{
+        top: 0px;
+        left: 0px;
+
+    }
+}
+#background-cross{ /* crosses are composed of 20px squares, each being 3x3 squares in total*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('./cross-shadow.png');
+    height: 100vh;
+    width: 100vw;
+    z-index: -10;
+}

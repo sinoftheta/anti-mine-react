@@ -11,7 +11,7 @@ import store from './redux/store/index.js';
 import App from './App.js';
 
 // CSS //
-import css from './assets/example.css'
+import css from './assets/antiMineLarge.css'
 
 
 render( 

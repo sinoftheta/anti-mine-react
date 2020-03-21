@@ -11,47 +11,18 @@
 
 //https://www.digitalocean.com/community/tutorials/wrap-a-vanilla-javascript-package-for-use-in-react
 
-// EXAMPLE SETTINGS OBJECT // 
-
-let example = {
-
-    // PROPERTIES -- primitive data type options
-    numMines: 1, //total number of mines & anti-mines
-    rows: 1,
-    columns: 1,
-    kernelWeight: 1,
-    seed: 1,
-    haveAntiMines:  true,
-
-    //DATA PROPERTIES -- properties that are data objects
-    kernel: [[]],
-    presetBoard: [[]], // OPTIONAL
-
-    // EVENT HANDLERS (a type of callback)
-    // what events does the application need to respond to during run time?
-    onDamageTaken: () => console.log('ouch!'),
-    onGameLost: () => console.log('you lost :('),
-    onGameWon: () => console.log('you won :)'),
-    onTilesUpdated: () => console.log('all tiles updated'),
-
-    // CALLBACKS
-    // what does the module need to know about the application during run time? (not during initialization)
-    //nothing
-
-}
 
 import Cell from './Cell.js';
 import seedrandom from 'seedrandom';
 
 export default class GameLogic{
     constructor(settings){
-        super();
         this.settings = settings;
-        this._setup();
-
+        this.setup();
     }
-    _setup(){ //may change to num mines + num anti mines, maybe a mine will just have random value 
+    setup = () => { //may change to num mines + num anti mines, maybe a mine will just have random value 
 
+        console.log('setting up')
         this.numMines = this.settings.numMines;
         this.rows = this.settings.rows;
         this.columns = this.settings.columns;
@@ -75,17 +46,15 @@ export default class GameLogic{
             }
         }
     }
-    reset(){this._setup();}
-
-
-    flagTile(x,y){
+    flagTile = (x,y) => {
         let target = this.field[x][y];
         //cycle flag value
         target.flagState = (target.flagState + 1) % 3;
         console.log(target.flagState);
     }
-    revealTile(x,y){
-
+    revealTile = (x,y) => {
+        console.log(`revealing (${x}, ${y})`);
+        
         //TODO: error checking on x, y
         if(this.gameLost || this.gameWon || this.field[x][y].revealed) return;
 
@@ -98,6 +67,8 @@ export default class GameLogic{
             if(!target.revealed){
                 target.revealed = true;
                 this.minesRevealed++;
+                //BROADCAST
+                this.settings.onMineRevealed();
             }
 
         }else{
@@ -117,7 +88,7 @@ export default class GameLogic{
         //this.mineRevealList = []; 
 
         //BROADCAST
-        this.settings.onTilesUpdated();
+        this.settings.onBoardUpdated();
 
 
         //check for loss
@@ -209,6 +180,8 @@ export default class GameLogic{
                         this.minesRevealed++;
                     }
                 });
+                //BROADCAST
+                this.settings.onMineRevealed();
             }
     }
     _mineIslandFinder(x, y, island){
@@ -252,7 +225,7 @@ export default class GameLogic{
     
     }
     
-    placeMinesRandom(exclude){ 
+    placeMinesRandom = (exclude) => { 
 
         if(this.numMines >= this.area){
             console.error('Too many mines for this board size');
@@ -279,7 +252,7 @@ export default class GameLogic{
             }
         }
     }
-    placeMinesPreset(){
+    placeMinesPreset = () => {
         this.numMines = 0;
         for(let i = 0; i < this.rows; i++){ 
             for(let j = 0; j < this.columns; j++){
@@ -292,7 +265,7 @@ export default class GameLogic{
         }
     }
     
-    placeNumbersKernel(){
+    placeNumbersKernel = () => {
         let k = this.settings.kernel;
         let field = this.field;
         let tempField = [];
