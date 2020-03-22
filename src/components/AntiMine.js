@@ -19,22 +19,21 @@ class AntiMine extends Component{
         super(props);
         this.state = {
             loading: true,
-            //...game settings comes from redux
         }
     }
     componentDidMount(){
         this.loadGame();
         this.setState({loading: false});
-        //this.props.loadRaster();
+        this.props.loadRaster();
         
     }
     loadGame(){
         // instantiate new GameLogic
         console.log('loading new gameLogic')
-        console.log(this.props.settings)
+        console.log(this.props.logicSettings)
         console.log(this)
         this.manager = new GameManager({
-            ...this.props.settings,
+            ...this.props.logicSettings,
             ...{
                     onDamageTaken: () => {console.log('ouch!');},
                     onGameLost: () => console.log('you lost :('), 
@@ -57,17 +56,20 @@ class AntiMine extends Component{
         return this.state.loading ? 
             <div id={'__GAME__loading'}/> //could play A board building animation here...?
             :
-            <div id={'__GAME__grid'}>
-                    <Board 
-                        click={(x,y) => this.manager.revealTile(x,y)}
-                        cutoff={this.state.cutoff}
-                        multiplier={this.state.multiplier}
-                    />
-                    {/* might make these into their own components? */}
-                    <div id={'__GAME__hp-bar'}>{this.props.hp}</div>
-                    <div id={'__GAME__remaining-mines'}>{this.props.remainingMines}</div>
-                    {/*<VisualControls/>*/}
-            </div>
+            <>
+                <div id={'__GAME__grid'}>
+                        <Board 
+                            click={(x,y) => this.manager.revealTile(x,y)}
+                            cutoff={this.state.cutoff? this.state.cutoff : 0.12}
+                            multiplier={this.state.multiplier? this.state.multiplier : 5.0}
+                        />
+                        {/* might make these into their own components? */}
+                        <div id={'__GAME__hp-bar'}>{this.props.hp}</div>
+                        <div id={'__GAME__remaining-mines'}>{this.props.remainingMines}</div>
+                        {/*<VisualControls/>*/}
+                </div>
+                <button onClick={()=>{'go back to title'}}>title</button>
+            </>
             ;
     }
 }
@@ -75,7 +77,7 @@ class AntiMine extends Component{
 
 const mapStateToProps = state => ({
     board: state.board,
-    settings: state.settings
+    logicSettings: state.logicSettings
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

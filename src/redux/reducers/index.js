@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import {settings} from './settings.js';
+import {logicSettings, generalSettings} from './settings.js';
 import {board, gradientRaster} from './game.js';
 import {view} from './view.js';
 
@@ -8,6 +8,7 @@ import {view} from './view.js';
 export default combineReducers({
     board,
     gradientRaster,
-    settings,
+    logicSettings, 
+    generalSettings,
     view
 });

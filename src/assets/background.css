@@ -7,11 +7,13 @@ body{
     background-image: url('./checker.png');
     height: calc(100vh + 20px);
     width: calc(100vw + 30px);
+    z-index: -20;
+
     animation-name: checkerScroll;
-    animation-duration: 2s;
+    animation-duration: 0s; /*typical value is like 1.3s*/
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    z-index: -20;
+    
 }
 @keyframes checkerScroll{
     0% {
@@ -32,4 +34,19 @@ body{
     height: 100vh;
     width: 100vw;
     z-index: -10;
+
+    /*
+    animation-name: crossBreath;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    */
+}
+@keyframes crossBreath{
+    0% {
+        background-size: 97%, 103%;
+    }
+    100%{
+        background-size: 103%, 97%;
+    }
 }

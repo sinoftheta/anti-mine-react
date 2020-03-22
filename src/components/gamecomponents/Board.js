@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-
+import {colorMap} from '../../js/ColorMap.js';
 // antiMine will be reset by its parent component when its settings prop changes
 class Board extends Component{
     constructor(props){
@@ -27,12 +27,18 @@ class Board extends Component{
                             key={j}
                             x={tile.x}
                             y={tile.y}
-                            /*style={{background: colorMap(
-                                tile.value,
-                                this.props.settings.kWeight,
-                                this.props.cutoff,
-                                this.props.multiplier
-                            )}}*/
+                            style={
+                                
+                                tile.revealed? 
+                                {background: this.props.raster[colorMap(
+                                    tile.value,
+                                    this.props.logicSettings.kernelWeight,
+                                    this.props.cutoff,
+                                    this.props.multiplier)]
+                                }
+                                :
+                                {}
+                            }
                             
                             onClick={() => this.props.click(tile.x, tile.y)}
                         />
@@ -50,7 +56,10 @@ class Board extends Component{
 
 
 const mapStateToProps = state => ({
-    board: state.board
+    board: state.board,
+    logicSettings: state.logicSettings,
+    raster: state.gradientRaster,
+    
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

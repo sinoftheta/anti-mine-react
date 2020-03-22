@@ -52,6 +52,8 @@ let gradientPointValue = (gradient, weight) => {
     let g = Math.round(c0.g + npw * (c1.g - c0.g) / ncw); 
     let b = Math.round(c0.b + npw * (c1.b - c0.b) / ncw); 
 
+    //console.log(`rgb(${r}, ${g}, ${b})`)
+
     return `rgb(${r}, ${g}, ${b})`;
     //return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`; //hex code is kinda broken, results in RGBA values in some cases
 }

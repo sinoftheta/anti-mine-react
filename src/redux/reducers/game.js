@@ -10,7 +10,7 @@ export const board = (state = [[]], action) => {
     }
 }
 
-export const gradientRaster =(state = [], action) => {
+export const gradientRaster = (state = [], action) => {
     switch(action.type){
         case 'SET_RASTER':
             return action.raster;
