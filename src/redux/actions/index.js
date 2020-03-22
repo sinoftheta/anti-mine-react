@@ -13,25 +13,26 @@ export const changeToView = (view) => ({ type: 'CHANGE_VIEW', view: view});
 export const setBoardRender = (board) => ({ type: 'UPDATE_BOARD', board: board});
 
 
-
+//derives datasets needed for gameplay based on settings
 export const deriveData = () => {
     return (dispatch, getState)=> {
-
-        console.log(themes[getState().generalSettings.themeId]);
 
         //raster the current theme
         let raster = rasterizeGradient(themes[getState().generalSettings.themeId].data);
         dispatch({type: 'SET_RASTER', raster: raster});
 
-
         //generate kernel
-        let kernel = generateKernel(getState().generalSettings.kernelCenter, getState().generalSettings.kernelType);
-        dispatch({type: 'CHANGE_LOGIC_SETTINGS', setting: {kernel: kernel, kernelWeight: 1}});
+        let kernel = generateKernel(getState().generalSettings.kernelCenter, getState().generalSettings.kernelTypeId);
+        dispatch({type: 'CHANGE_LOGIC_SETTINGS', setting: {kernel: kernel, kernelWeight: 1}}); // I think I need a real kweight here?
+
+        //set random seed
+        dispatch({type: 'CHANGE_LOGIC_SETTINGS', setting: {seed: Math.floor(Math.random() * 420691337)}});
     }
 }
 
 
-/*
+/* 
+// this may need to be called mid game
 export const loadRaster = () => {
     return (dispatch, getState)=> {
         let raster = rasterizeGradient(getState().generalSettings.gradient);

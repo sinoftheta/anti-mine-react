@@ -17,8 +17,9 @@ export const initGenSettings = {
     themeId: 0,
     raster: [],
     level: 0,
-    kernelTypeId: 0,
-    kernelCenter: 2,
+    kernelTypeId: 1, //0: taxi, 1: king
+    kernelCenter: 12,
+    showTileValues: true,
 
 }
 

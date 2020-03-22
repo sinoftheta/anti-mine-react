@@ -31,7 +31,7 @@ class Settings extends Component{
             
             //general
             themeId: 0,
-            displayTileValues: false, 
+            showTileValues: false, 
 
             //app settings
             bgScroll: true,
@@ -129,8 +129,8 @@ class Settings extends Component{
 
 
                     <div>Show Tile Values</div>
-                    <button onClick={()=>this.setState(ps => ({displayTileValues: !ps.displayTileValues}))}>
-                        {this.state.displayTileValues? 'ON':'OFF'}
+                    <button onClick={()=>this.setState(ps => ({showTileValues: !ps.showTileValues}))}>
+                        {this.state.showTileValues? 'ON':'OFF'}
                     </button>
 
                     <div>Anti-mines</div>

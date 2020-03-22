@@ -41,7 +41,9 @@ class Board extends Component{
                             }
                             
                             onClick={() => this.props.click(tile.x, tile.y)}
-                        />
+                        >
+                            {this.props.showTileValues ? tile.value : null}
+                        </div>
                     )
                 }
                 </div>
@@ -59,6 +61,7 @@ const mapStateToProps = state => ({
     board: state.board,
     logicSettings: state.logicSettings,
     raster: state.gradientRaster,
+    showTileValues: state.generalSettings.showTileValues,
     
 });
 
