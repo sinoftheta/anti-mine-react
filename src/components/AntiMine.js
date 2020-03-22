@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // REDUX ACTIONS //
-import {setBoardRender,loadRaster} from './../redux/actions/index.js';
+import {setBoardRender, deriveData, changeToView} from './../redux/actions/index.js';
 
 // COMPONENTS //
 import GameManager from './../js/GameManager.js';
@@ -24,7 +24,7 @@ class AntiMine extends Component{
     componentDidMount(){
         this.loadGame();
         this.setState({loading: false});
-        this.props.loadRaster();
+        this.props.deriveData();
         
     }
     loadGame(){
@@ -68,7 +68,12 @@ class AntiMine extends Component{
                         <div id={'__GAME__remaining-mines'}>{this.props.remainingMines}</div>
                         {/*<VisualControls/>*/}
                 </div>
-                <button onClick={()=>{'go back to title'}}>title</button>
+                <button onClick={() => this.props.changeToView('title')}>
+                    Title
+                </button>
+                <button onClick={() => this.props.changeToView('settings')}>
+                    Settings
+                </button>
             </>
             ;
     }
@@ -82,7 +87,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     setBoardRender:setBoardRender,
-    loadRaster:loadRaster
+    deriveData:deriveData,
+    changeToView:changeToView,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AntiMine);
