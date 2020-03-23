@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // REDUX ACTIONS //
-import {changeToView} from './../redux/actions/index.js';
+import {changeToView, updateLogicSettings, updateGenSettings} from './../redux/actions/index.js';
 
 // DATA //
 import {initLogicSettings, initGenSettings, kernelTypes} from './../data/DefaultSettings.js';
@@ -18,27 +18,9 @@ const themeTitles = themes.map(theme => theme.title);
 class Settings extends Component{
     constructor(props){
         super(props);
-
-        //need to import init state values from a master default state...
-        this.state = {
-            //logic
-            kernelTypeId: 0,
-            kernelCenter: 3,
-            haveAntiMines:  true,
-            rows: 10,
-            columns: 10,
-            numMines: 5,
-            
-            //general
-            themeId: 0,
-            showTileValues: false, 
-
-            //app settings
-            bgScroll: true,
-            tileSizeId: 0,
-        }
     }
     render(){
+        console.log(this.props.tileSizeId)
         return(
             <>
                 <div> Settings </div>
@@ -54,18 +36,18 @@ class Settings extends Component{
 
                     {/* make list selects into component (toggles are an instance of list select) */}
                     <div>Mine Field</div>
-                    <button onClick={()=>this.setState(ps => ({kernelTypeId: (ps.kernelTypeId + 1) % kernelTypes.length}))}>
-                        {kernelTypes[this.state.kernelTypeId]}
+                    <button onClick={()=>this.props.updateGenSettings({kernelTypeId: (this.props.kernelTypeId + 1) % kernelTypes.length})}>
+                        {kernelTypes[this.props.kernelTypeId]}
                     </button>
 
                     <div>Tile Sizes</div>
-                    <button onClick={()=>this.setState(ps => ({tileSizeId: (ps.tileSizeId + 1) % tileSizes.length}))}>
-                        {tileSizes[this.state.tileSizeId]}
+                    <button onClick={()=>this.props.updateGenSettings({tileSizeId: (this.props.tileSizeId + 1) % tileSizes.length})}>
+                        {tileSizes[this.props.tileSizeId]}
                     </button>
 
                     <div>Board Theme</div>
-                    <button onClick={()=>this.setState(ps => ({themeId: (ps.themeId + 1) % themeTitles.length}))}>
-                        {themeTitles[this.state.themeId]}
+                    <button onClick={()=>this.props.updateGenSettings({themeId: (this.props.themeId + 1) % themeTitles.length})}>
+                        {themeTitles[this.props.themeId]}
                     </button>
 
                     {/* make the number selector into a component too*/}
@@ -74,11 +56,11 @@ class Settings extends Component{
                         type="number" 
                         min={2} 
                         max={20}
-                        value={this.state.kernelCenter}
+                        value={this.props.kernelCenter}
                         onChange={(e)=>{
                             let next = e.target.value;
                             if  (next >= 2 && next <= 20)
-                                this.setState({kernelCenter: next});
+                                this.props.updateGenSettings({kernelCenter: next});
                         }}
                     />
                     <div>Height</div>
@@ -86,14 +68,14 @@ class Settings extends Component{
                         type="number" 
                         min={5} 
                         max={50}
-                        value={this.state.rows}
+                        value={this.props.rows}
                         onChange={(e)=>{
                             let next = e.target.value;
                             if  (next >= 5 &&
                                  next <= 50 &&
-                                 next * this.state.columns > this.state.numMines + 5
+                                 next * this.props.columns > this.props.numMines + 5
                                  ) 
-                                this.setState({rows: next});
+                                this.props.updateLogicSettings({rows: next});
                         }}
                     />
                     <div>Width</div>
@@ -101,14 +83,14 @@ class Settings extends Component{
                         type="number" 
                         min={5} 
                         max={50}
-                        value={this.state.columns}
+                        value={this.props.columns}
                         onChange={(e)=>{
                             let next = e.target.value;
                             if  (next >= 5 &&
                                  next <= 50 &&
-                                 this.state.rows * next > this.state.numMines + 5
+                                 this.props.rows * next > this.props.numMines + 5
                                  ) 
-                                this.setState({columns: next});
+                                this.props.updateLogicSettings({columns: next});
                         }}
                     />
                     <div>Mines</div>
@@ -116,40 +98,40 @@ class Settings extends Component{
                         type="number" 
                         min={3} 
                         max={1250}
-                        value={this.state.numMines}
+                        value={this.props.numMines}
                         onChange={(e)=>{
                             let next = e.target.value;
                             if  (next >= 5 &&
                                  next <= 1250 &&
-                                 this.state.rows * this.state.columns > next + 5
+                                 this.props.rows * this.props.columns > next + 5
                                  ) 
-                                this.setState({numMines: next});
+                                this.props.updateLogicSettings({numMines: next});
                         }}
                     />
 
 
                     <div>Show Tile Values</div>
-                    <button onClick={()=>this.setState(ps => ({showTileValues: !ps.showTileValues}))}>
-                        {this.state.showTileValues? 'ON':'OFF'}
+                    <button onClick={()=>this.props.updateGenSettings({showTileValues: !this.props.showTileValues})}>
+                        {this.props.showTileValues? 'ON':'OFF'}
                     </button>
 
                     <div>Anti-mines</div>
-                    <button onClick={()=>this.setState(ps => ({haveAntiMines: !ps.haveAntiMines}))}>
-                        {this.state.haveAntiMines? 'ON':'OFF'}
+                    <button onClick={()=>this.props.updateLogicSettings({haveAntiMines: !this.props.haveAntiMines})}>
+                        {this.props.haveAntiMines? 'ON':'OFF'}
                     </button>
 
                     <div>Background Scroll (will be replaced with icon)</div>
-                    <button onClick={()=>this.setState(ps => ({bgScroll: !ps.bgScroll}))}>
-                        {this.state.bgScroll? 'ON':'OFF'}
+                    <button onClick={()=>this.props.updateGenSettings({bgScroll: !this.props.bgScroll})}>
+                        {this.props.bgScroll? 'ON':'OFF'}
                     </button>
 
                 </div>
 
                 {/* <BoardPreview
-                        tileValues={this.state.showTileValues}
+                        tileValues={this.props.showTileValues}
                         kernelCenter={}
                         haveAntiMines={}
-                        theme={this.state.theme}
+                        theme={this.props.theme}
                 /> */}
 
             </>
@@ -159,10 +141,27 @@ class Settings extends Component{
 
 
 const mapStateToProps = state => ({
+    //general
+    themeId: state.generalSettings.themeId,
+    kernelTypeId: state.generalSettings.kernelTypeId,
+    kernelCenter: state.generalSettings.kernelCenter,
+    showTileValues: state.generalSettings.showTileValues,
+    bgScroll: state.generalSettings.bgScroll,
+    tileSizeId: state.generalSettings.tileSizeId,
+
+    //logic
+    numMines: state.logicSettings.numMines,
+    rows: state.logicSettings.rows,
+    columns: state.logicSettings.columns,
+    haveAntiMines:  state.logicSettings.haveAntiMines,
+
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changeToView: changeToView
+    changeToView: changeToView,
+    updateLogicSettings: updateLogicSettings,
+    updateGenSettings: updateGenSettings,
+
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

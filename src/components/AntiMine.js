@@ -19,19 +19,27 @@ class AntiMine extends Component{
         super(props);
         this.state = {
             loading: true,
+            cutoff: 0.12,
+            multiplier: 1.0,
         }
     }
     componentDidMount(){
-        this.loadGame();
-        this.setState({loading: false});
         this.props.deriveData();
-        
+    }
+    componentDidUpdate(){
+        if(this.state.loading){
+            this.loadGame();
+            this.setState({loading: false});
+        }
     }
     loadGame(){
         // instantiate new GameLogic
         console.log('loading new gameLogic')
         console.log(this.props.logicSettings)
         console.log(this)
+
+        
+
         this.manager = new GameManager({
             ...this.props.logicSettings,
             ...{
@@ -60,8 +68,8 @@ class AntiMine extends Component{
                 <div id={'__GAME__grid'}>
                         <Board 
                             click={(x,y) => this.manager.revealTile(x,y)}
-                            cutoff={this.state.cutoff? this.state.cutoff : 0.12}
-                            multiplier={this.state.multiplier? this.state.multiplier : 5.0}
+                            cutoff={this.state.cutoff}
+                            multiplier={this.state.multiplier}
                         />
                         {/* might make these into their own components? */}
                         <div id={'__GAME__hp-bar'}>{this.props.hp}</div>

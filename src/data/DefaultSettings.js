@@ -15,11 +15,15 @@ export const initLogicSettings = {
 
 export const initGenSettings = {
     themeId: 0,
+    cutoff: 0.7,
+    multiplier: 2,
     raster: [],
     level: 0,
     kernelTypeId: 1, //0: taxi, 1: king
-    kernelCenter: 12,
+    kernelCenter: 3,
     showTileValues: true,
+    bgScroll: true,
+    tileSizeId: 0,
 
 }
 

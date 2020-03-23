@@ -2,16 +2,17 @@
 
 export const generateKernel = (center, type) => {
 
-    console.log('center: ' + center);
-    console.log('type: ' + type);
+    //console.log('center: ' + center);
+    //console.log('type: ' + type);
 
     let k = [];
+    let w = 0;
     
     let diameter = 2 * center - 1;
-    console.log('diameter: ' + diameter)
+    //console.log('diameter: ' + diameter)
 
     let radius = center - 1;
-    console.log('radius: ' + radius);
+    //console.log('radius: ' + radius);
 
     if(type == 0){ //taxi
         for(let i = 0; i < diameter; i++){
@@ -20,6 +21,7 @@ export const generateKernel = (center, type) => {
 
                 //compute inverse  taxicab distance
                 k[i][j] = Math.max(Math.abs(Math.abs(i - radius) + Math.abs( j - radius) - diameter) - radius, 0);
+                w += k[i][j];
             }
         }
     }
@@ -30,9 +32,11 @@ export const generateKernel = (center, type) => {
 
                 //compute king distance
                 k[i][j] = 1 + radius - Math.max(Math.abs(i - radius), Math.abs(j - radius));
+                w += k[i][j];
             }
         }
     }
-    console.log(k)
-    return k;
+    //console.log(k)
+    //return k;
+    return {kernel: k, kernelWeight: w}
 }

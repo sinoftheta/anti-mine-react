@@ -42,7 +42,7 @@ class Board extends Component{
                             
                             onClick={() => this.props.click(tile.x, tile.y)}
                         >
-                            {this.props.showTileValues ? tile.value : null}
+                            {this.props.showTileValues && tile.revealed ? tile.value : null}
                         </div>
                     )
                 }
