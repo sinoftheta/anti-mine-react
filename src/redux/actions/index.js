@@ -9,6 +9,9 @@ export const updateGenSettings = (newSetting) => ({ type: 'CHANGE_GENERAL_SETTIN
 
 export const changeToView = (view) => ({ type: 'CHANGE_VIEW', view: view});
 
+export const updateCutoff = (cutoff) => ({ type: 'UPDATE_CUTOFF', cutoff: cutoff});
+
+export const updateMultiplier = (mult) => ({ type: 'UPDATE_MULTIPLIER', multiplier: multiplier});
 
 export const setBoardRender = (board) => ({ type: 'UPDATE_BOARD', board: board});
 

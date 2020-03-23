@@ -8,7 +8,8 @@ import { bindActionCreators } from 'redux';
 
 import AntiMine from './components/AntiMine.js';
 import Settings from './components/SettingsMenu.js';
-import LevelSelect from './components/LevelSelect.js';
+//import LevelSelect from './components/LevelSelect.js';
+import About from './components/AboutPage.js'
 import Title from './components/TitleScreen.js';
 
 // CSS //
@@ -30,6 +31,8 @@ class App extends PureComponent{
             case 'select':
                 view =  <LevelSelect/>;
                 break;
+            case 'about':
+                view = <About/>;
             case 'title':
             default:
                 view =  <Title/>;

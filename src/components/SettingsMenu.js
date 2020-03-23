@@ -12,6 +12,9 @@ import {changeToView, updateLogicSettings, updateGenSettings} from './../redux/a
 import {initLogicSettings, initGenSettings, kernelTypes} from './../data/DefaultSettings.js';
 import themes from './../data/ColorSchemes.js';
 
+// COMPONENTS //
+import BoardPreview from './settingscomponents/BoardPreview.js';
+
 const tileSizes = ['small', 'medium', 'large'];
 const themeTitles = themes.map(theme => theme.title);
 
@@ -20,7 +23,6 @@ class Settings extends Component{
         super(props);
     }
     render(){
-        console.log(this.props.tileSizeId)
         return(
             <>
                 <div> Settings </div>
@@ -116,7 +118,11 @@ class Settings extends Component{
                     </button>
 
                     <div>Anti-mines</div>
-                    <button onClick={()=>this.props.updateLogicSettings({haveAntiMines: !this.props.haveAntiMines})}>
+                    <button onClick={()=> {
+
+                    
+                        this.props.updateLogicSettings({haveAntiMines: !this.props.haveAntiMines})
+                    }}>
                         {this.props.haveAntiMines? 'ON':'OFF'}
                     </button>
 
@@ -125,14 +131,35 @@ class Settings extends Component{
                         {this.props.bgScroll? 'ON':'OFF'}
                     </button>
 
+                    {/* make these sliders into their own components too */}
+                    <div>Multiplier</div>
+                    <input 
+                        type={'range'} 
+                        min={1} 
+                        step={0.1}
+                        max={7} 
+                        value={this.props.multiplier} 
+                        onChange={(e) => console.log('multiplier: ' + e.target.value)}
+                    />
+
+                    <div>Multiplier</div>
+                    <input 
+                        type={'range'} 
+                        min={1} 
+                        step={0.1}
+                        max={7} 
+                        value={this.props.multiplier} 
+                        onChange={(e) => console.log('multiplier: ' + e.target.value)}
+                    />
+
                 </div>
 
-                {/* <BoardPreview
-                        tileValues={this.props.showTileValues}
+                {<BoardPreview
+                        /*tileValues={this.props.showTileValues}
                         kernelCenter={}
                         haveAntiMines={}
-                        theme={this.props.theme}
-                /> */}
+                        theme={this.props.theme}*/
+                />}
 
             </>
         );
@@ -148,6 +175,8 @@ const mapStateToProps = state => ({
     showTileValues: state.generalSettings.showTileValues,
     bgScroll: state.generalSettings.bgScroll,
     tileSizeId: state.generalSettings.tileSizeId,
+    cutoff: state.cutoff,
+    multiplier: state.multiplier,
 
     //logic
     numMines: state.logicSettings.numMines,

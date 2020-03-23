@@ -24,7 +24,7 @@ class Title extends Component{
                     Play
                 </button>
                 <button onClick={() => {}}>
-                    Level Select
+                    About
                 </button>
                 <button onClick={() => this.props.changeToView('settings')}>
                     Settings
