@@ -38,6 +38,8 @@ class Settings extends Component{ //change this into a stateless component when 
 
                  <BoardPreview/>
 
+                 {/* COULD TRY AND SPLIT UP DERIVEDATA() */}
+
                 <div id={'settings-container'}> {/* will prob be a css grid */}
 
                     {/* make list selects into component (toggles are an instance of list select) */}
@@ -55,8 +57,10 @@ class Settings extends Component{ //change this into a stateless component when 
                     </button>
 
                     <div>Board Theme</div>
-                    <button onClick={()=>
-                        this.props.updateGenSettings({themeId: (this.props.themeId + 1) % themeTitles.length})}>
+                    <button onClick={()=>{
+                        this.props.updateGenSettings({themeId: (this.props.themeId + 1) % themeTitles.length})
+                        this.props.deriveData();
+                    }}>
                         {themeTitles[this.props.themeId]}
                     </button>
 

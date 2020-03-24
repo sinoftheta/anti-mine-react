@@ -12,21 +12,38 @@ import {setBoardRender, deriveData} from '../../redux/actions/index.js';
 //a custom board meant to reflect parts of the current settings
 
 // both are 7x7
-const board1 = [[0,0,0,0,0,0,0],
+const boards =[[[0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0],
                 [0,0,0,1,0,0,0],
                 [0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0]];
+                [0,0,0,0,0,0,0]],
 
-const board2 = [[0,0,0,0,0,0,0],
+                [[0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0],
                 [0,0,0,0,1,0,0],
                 [0,0,0,0,0,0,0],
                 [0,-1,0,0,0,0,0],
                 [0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0]];
+                [0,0,0,0,0,0,0]],
+
+                [[0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,1,0,-1,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0]],
+
+                [[0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0],
+                [0,0,0,0,-1,0,0]]]
+
 
 // setup board, cursor, and game instance
 class BoardPreview extends Component{
@@ -61,14 +78,14 @@ class BoardPreview extends Component{
         console.log(this.props.logicSettings)
         console.log(this.props.kernel)
 
-        
-
+        //nooed some way to save n...
+        let n = Math.floor(Math.random() * (boards.length - 1)) + 1;
 
         this.manager = new GameManager({
             ...this.props.logicSettings,
             ...{
                 //custom logic settings
-                presetBoard: this.props.haveAntiMines? board2 : board1,
+                presetBoard: this.props.haveAntiMines? boards[0] : boards[3],
                 kernel: this.props.kernel,
 
             },
