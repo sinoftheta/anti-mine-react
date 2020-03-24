@@ -4,7 +4,7 @@ export const initLogicSettings = {
     rows: 10,
     columns: 10,
     kernelWeight: 1,
-    seed: Math.floor(Math.random() * 100),
+    seed: Math.floor(Math.random() * 133742069),
     haveAntiMines:  true,
 
     //DATA PROPERTIES -- properties that are data objects
@@ -22,6 +22,7 @@ export const initGenSettings = {
     showTileValues: true,
     bgScroll: true,
     tileSizeId: 0,
+    difficultyId: 0, 
 
 }
 

@@ -18,7 +18,7 @@ export const setBoardRender = (board) => ({ type: 'UPDATE_BOARD', board: board})
 
 //derives datasets needed for gameplay based on settings
 export const deriveData = () => {
-    console.log('deriving data')
+    console.log('-=-=-=deriving data=-=-=-');
     return (dispatch, getState)=> {
 
         //raster the current theme
@@ -28,9 +28,12 @@ export const deriveData = () => {
         //generate kernel
         let k = generateKernel(getState().generalSettings.kernelCenter, getState().generalSettings.kernelTypeId);
         dispatch({type: 'CHANGE_LOGIC_SETTINGS', setting: k}); // I think I need a real kweight here?
-
+        console.log(k)
         //set random seed
-        dispatch({type: 'CHANGE_LOGIC_SETTINGS', setting: {seed: Math.floor(Math.random() * 420691337)}});
+        dispatch({type: 'CHANGE_LOGIC_SETTINGS', setting: {seed: Math.floor(Math.random() * 420691337)}}); // I dont think this does anything
+    
+        // not hooked up yet
+        dispatch({type: 'SET_DATA_DERIVED', value: true});
     }
 }
 

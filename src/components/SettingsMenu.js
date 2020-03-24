@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // REDUX ACTIONS //
-import {changeToView, updateLogicSettings, updateGenSettings} from './../redux/actions/index.js';
+import {changeToView, updateLogicSettings, updateGenSettings, deriveData} from './../redux/actions/index.js';
 
 // DATA //
 import {initLogicSettings, initGenSettings, kernelTypes} from './../data/DefaultSettings.js';
@@ -15,10 +15,12 @@ import themes from './../data/ColorSchemes.js';
 // COMPONENTS //
 import BoardPreview from './settingscomponents/BoardPreview.js';
 
+const gameModes = ['Custom', 'Novice', 'Intermediate', 'Expert', 'WideBrain'];
 const tileSizes = ['small', 'medium', 'large'];
 const themeTitles = themes.map(theme => theme.title);
 
-class Settings extends Component{
+
+class Settings extends Component{ //change this into a stateless component when its contents are made into classes
     constructor(props){
         super(props);
     }
@@ -34,11 +36,16 @@ class Settings extends Component{
                     Title
                 </button>
 
+                 <BoardPreview/>
+
                 <div id={'settings-container'}> {/* will prob be a css grid */}
 
                     {/* make list selects into component (toggles are an instance of list select) */}
                     <div>Mine Field</div>
-                    <button onClick={()=>this.props.updateGenSettings({kernelTypeId: (this.props.kernelTypeId + 1) % kernelTypes.length})}>
+                    <button onClick={()=>{
+                        this.props.updateGenSettings({kernelTypeId: (this.props.kernelTypeId + 1) % kernelTypes.length});
+                        this.props.deriveData();
+                        }}>
                         {kernelTypes[this.props.kernelTypeId]}
                     </button>
 
@@ -48,8 +55,14 @@ class Settings extends Component{
                     </button>
 
                     <div>Board Theme</div>
-                    <button onClick={()=>this.props.updateGenSettings({themeId: (this.props.themeId + 1) % themeTitles.length})}>
+                    <button onClick={()=>
+                        this.props.updateGenSettings({themeId: (this.props.themeId + 1) % themeTitles.length})}>
                         {themeTitles[this.props.themeId]}
+                    </button>
+
+                    <div>Difficulty</div>
+                    <button onClick={()=>this.props.updateGenSettings({difficultyId: (this.props.difficultyId + 1) % gameModes.length})}>
+                        {gameModes[this.props.difficultyId]}
                     </button>
 
                     {/* make the number selector into a component too*/}
@@ -63,6 +76,7 @@ class Settings extends Component{
                             let next = e.target.value;
                             if  (next >= 2 && next <= 20)
                                 this.props.updateGenSettings({kernelCenter: next});
+                                this.props.deriveData();
                         }}
                     />
                     <div>Height</div>
@@ -122,6 +136,7 @@ class Settings extends Component{
 
                     
                         this.props.updateLogicSettings({haveAntiMines: !this.props.haveAntiMines})
+                        this.props.deriveData();
                     }}>
                         {this.props.haveAntiMines? 'ON':'OFF'}
                     </button>
@@ -142,25 +157,17 @@ class Settings extends Component{
                         onChange={(e) => console.log('multiplier: ' + e.target.value)}
                     />
 
-                    <div>Multiplier</div>
+                    <div>Cutoff</div>
                     <input 
                         type={'range'} 
-                        min={1} 
+                        min={0} 
                         step={0.1}
-                        max={7} 
-                        value={this.props.multiplier} 
-                        onChange={(e) => console.log('multiplier: ' + e.target.value)}
+                        max={3} 
+                        value={this.props.cutoff} 
+                        onChange={(e) => console.log('cutoff: ' + e.target.value)}
                     />
 
                 </div>
-
-                {<BoardPreview
-                        /*tileValues={this.props.showTileValues}
-                        kernelCenter={}
-                        haveAntiMines={}
-                        theme={this.props.theme}*/
-                />}
-
             </>
         );
     }
@@ -171,12 +178,14 @@ const mapStateToProps = state => ({
     //general
     themeId: state.generalSettings.themeId,
     kernelTypeId: state.generalSettings.kernelTypeId,
+    tileSizeId: state.generalSettings.tileSizeId,
+    difficultyId: state.generalSettings.difficultyId,
     kernelCenter: state.generalSettings.kernelCenter,
     showTileValues: state.generalSettings.showTileValues,
     bgScroll: state.generalSettings.bgScroll,
-    tileSizeId: state.generalSettings.tileSizeId,
     cutoff: state.cutoff,
     multiplier: state.multiplier,
+    
 
     //logic
     numMines: state.logicSettings.numMines,
@@ -190,6 +199,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     changeToView: changeToView,
     updateLogicSettings: updateLogicSettings,
     updateGenSettings: updateGenSettings,
+    deriveData:deriveData,
 
 }, dispatch);
 

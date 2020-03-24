@@ -18,7 +18,31 @@ import seedrandom from 'seedrandom';
 export default class GameLogic{
     constructor(settings){
         this.settings = settings;
-        this.setup();
+    }
+    setupFromPreset = () => {
+        console.log('setting up from preset')
+        this.rows = this.settings.presetBoard.length;
+        this.columns = this.settings.presetBoard[0].length;
+        this.area = this.rows * this.columns;
+
+        this.gameLost = false;
+        this.gameWon = false;
+        this.mineRevealList = [];
+        this.minesRevealed = 0;
+        this.safeTilesRevealed = 0;
+
+        //instantiate field of cells
+        this.field = [];
+        for(let i = 0; i < this.rows; i++){ 
+            this.field[i] = [];
+            for(let j = 0; j < this.columns; j++){
+                this.field[i][j] = new Cell(i,j);
+            }
+        }
+
+        this.placeMinesPreset();
+        this.hitpoints = this._hitpointsCalc(this.settings.kernelWeight, this.numMines);
+
     }
     setup = () => { //may change to num mines + num anti mines, maybe a mine will just have random value 
 
@@ -266,6 +290,9 @@ export default class GameLogic{
     }
     
     placeNumbersKernel = () => {
+        console.log('placing them numbers')
+        console.log(this.settings.kernel)
+        
         let k = this.settings.kernel;
         let field = this.field;
         let tempField = [];

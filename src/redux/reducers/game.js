@@ -1,3 +1,7 @@
+/**
+This file contains all variables needed to render a board
+*/
+
 export const board = (state = [[]], action) => {
     switch(action.type){
         case 'UPDATE_BOARD':

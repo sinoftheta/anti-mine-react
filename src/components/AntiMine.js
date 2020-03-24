@@ -19,8 +19,8 @@ class AntiMine extends Component{
         super(props);
         this.state = {
             loading: true,
-            cutoff: 0.12,
-            multiplier: 1.0,
+            gameWon: false,
+            gameLost: false,
         }
     }
     componentDidMount(){
@@ -42,6 +42,7 @@ class AntiMine extends Component{
 
         this.manager = new GameManager({
             ...this.props.logicSettings,
+            ...{seed: Math.floor(Math.random() * 133742069)},
             ...{
                     onDamageTaken: () => {console.log('ouch!');},
                     onGameLost: () => console.log('you lost :('), 
@@ -51,10 +52,6 @@ class AntiMine extends Component{
             }
         });
 
-        //todo: write a setter for this
-        //register onTilesUpdated callback
-        console.log(this.manager)
-        //this.manager.OnBoardUpdated = () => this.props.setBoardRender(this.manager.board);
         this.manager.OnBoardUpdated = () => {console.log('OnBoardUpdated!!'); this.props.setBoardRender(this.manager.board);}
         this.props.setBoardRender(this.manager.board);
         
@@ -68,8 +65,6 @@ class AntiMine extends Component{
                 <div id={'__GAME__grid'}>
                         <Board 
                             click={(x,y) => this.manager.revealTile(x,y)}
-                            cutoff={this.state.cutoff}
-                            multiplier={this.state.multiplier}
                         />
                         {/* might make these into their own components? */}
                         <div id={'__GAME__hp-bar'}>{this.props.hp}</div>
@@ -81,6 +76,9 @@ class AntiMine extends Component{
                 </button>
                 <button onClick={() => this.props.changeToView('settings')}>
                     Settings
+                </button>
+                <button onClick={() => this.loadGame()}>
+                    Reset
                 </button>
             </>
             ;

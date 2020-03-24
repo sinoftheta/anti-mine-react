@@ -5,9 +5,17 @@ export default class GameManager{
     //there may be different types of GameManagers
     // such as one for story mode, free play, multiplayer, ect...
     constructor(settings, startLevel){
-        this.game = new GameLogic(settings);
 
+        this.preset = !!settings.presetBoard;
         this.firstClick = true;
+
+        this.game = new GameLogic(settings);
+        if(this.preset){
+            this.game.setupFromPreset();
+            this.game.placeNumbersKernel();    
+        }else{
+            this.game.setup();
+        }
     }
 
     set OnBoardUpdated(f){
@@ -23,7 +31,7 @@ export default class GameManager{
     }
 
     revealTile = (x,y) => {
-        if(this.firstClick){
+        if(this.firstClick && !this.preset){
             this.firstClick = false;
             this.game.placeMinesRandom({x:x,y:y})
             this.game.placeNumbersKernel();    
