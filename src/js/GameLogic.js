@@ -77,7 +77,7 @@ export default class GameLogic{
         console.log(target.flagState);
     }
     revealTile = (x,y) => {
-        console.log(`revealing (${x}, ${y})`);
+        //console.log(`revealing (${x}, ${y})`);
         
         //TODO: error checking on x, y
         if(this.gameLost || this.gameWon || this.field[x][y].revealed) return;

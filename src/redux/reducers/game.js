@@ -40,3 +40,20 @@ export const multiplier = (state = 2, action) => {
             return state;
     }
 }
+
+export const hitpoints = (state = 0, action) => {
+    switch(action.type){
+        case 'UPDATE_HP':
+            return action.hp;
+        default:
+            return state;
+    }
+}
+export const remainingMines = (state = 0, action) => {
+    switch(action.type){
+        case 'UPDATE_REMAINING_MINES':
+            return action.mines;
+        default:
+            return state;
+    }
+}

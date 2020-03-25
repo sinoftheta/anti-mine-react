@@ -12,6 +12,8 @@ import {cutoffRange, multiplierRange} from './../data/DefaultSettings.js';
 // COMPONENTS //
 import GameManager from './../js/GameManager.js';
 import Board from './gamecomponents/Board.js';
+import RemainingMines from './gamecomponents/RemainingMines.js';
+import HPBar from './gamecomponents/HPBar.js';
 
 // setup board, cursor, and game instance
 class AntiMine extends Component{
@@ -55,10 +57,12 @@ class AntiMine extends Component{
         this.manager.OnBoardUpdated = () => {
             console.log('OnBoardUpdated!!'); 
             this.props.setBoardRender(this.manager.board);
-            this.props.setRemainingMines();
-            this.props.setHP();
+            this.props.setRemainingMines(this.manager.remainingMines);
+            this.props.setHP(this.manager.hitpoints);
         };
         this.props.setBoardRender(this.manager.board);
+        this.props.setRemainingMines(this.manager.remainingMines);
+        this.props.setHP(this.manager.hitpoints);
         
     }
     
@@ -73,8 +77,10 @@ class AntiMine extends Component{
                             click={(x,y) => this.manager.revealTile(x,y)}
                         />
                         {/* might make these into their own components? */}
-                        <div id={'__GAME__hp-bar'}>{this.props.hp}</div>
+                        
                         <div id={'__GAME__remaining-mines'}>{this.props.remainingMines}</div>
+                        <RemainingMines/>
+                        <HPBar/>
                         <div id={'__GAME__color-controls'}>
 
                             <div>Multiplier</div>

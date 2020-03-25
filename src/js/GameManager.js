@@ -18,17 +18,11 @@ export default class GameManager{
         }
     }
 
-    set OnBoardUpdated(f){
-        this.game.settings.onBoardUpdated = f;
-    }
-
-    get board(){
-        return this.game.field;
-    }
-
-    flagTile = (x,y) => {
-        this.game.flagTile(x,y);
-    }
+    set OnBoardUpdated(f){this.game.settings.onBoardUpdated = f;}
+    get board(){return this.game.field;}
+    get hitpoints(){return this.game.hitpoints;}
+    get remainingMines(){return this.game.numMines - this.game.minesRevealed}
+    flagTile = (x,y) => {this.game.flagTile(x,y);}
 
     revealTile = (x,y) => {
         if(this.firstClick && !this.preset){
