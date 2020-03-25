@@ -26,6 +26,8 @@ export const colorMap = (tileVal, kWeight, cutoff, multiplier) => {
 * output: hex color code string of generated color
 */
 let gradientPointValue = (gradient, weight) => {
+
+
     //find colors surounding weight
     if(weight === gradient[0].weight){
         return `rgb(${gradient[0].r}, ${gradient[0].g}, ${gradient[0].b})`;

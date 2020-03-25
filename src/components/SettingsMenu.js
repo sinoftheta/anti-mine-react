@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // REDUX ACTIONS //
-import {changeToView, updateLogicSettings, updateGenSettings, deriveData} from './../redux/actions/index.js';
+import {changeToView, updateLogicSettings, updateGenSettings, deriveData, loadRaster, updateCutoff, updateMultiplier} from './../redux/actions/index.js';
 
 // DATA //
-import {initLogicSettings, initGenSettings, kernelTypes} from './../data/DefaultSettings.js';
+import {initLogicSettings, initGenSettings, kernelTypes, cutoffRange, multiplierRange} from './../data/DefaultSettings.js';
 import themes from './../data/ColorSchemes.js';
 
 // COMPONENTS //
@@ -43,7 +43,7 @@ class Settings extends Component{ //change this into a stateless component when 
                 <div id={'settings-container'}> {/* will prob be a css grid */}
 
                     {/* make list selects into component (toggles are an instance of list select) */}
-                    <div>Mine Field</div>
+                    <div>Mine Signature</div>
                     <button onClick={()=>{
                         this.props.updateGenSettings({kernelTypeId: (this.props.kernelTypeId + 1) % kernelTypes.length});
                         this.props.deriveData();
@@ -154,21 +154,25 @@ class Settings extends Component{ //change this into a stateless component when 
                     <div>Multiplier</div>
                     <input 
                         type={'range'} 
-                        min={1} 
+                        min={multiplierRange[0]} 
                         step={0.1}
-                        max={7} 
+                        max={multiplierRange[1]} 
                         value={this.props.multiplier} 
-                        onChange={(e) => console.log('multiplier: ' + e.target.value)}
+                        onChange={(e) => {
+                            this.props.updateMultiplier(e.target.value);
+                        }}
                     />
 
                     <div>Cutoff</div>
                     <input 
                         type={'range'} 
-                        min={0} 
+                        min={cutoffRange[0]} 
                         step={0.1}
-                        max={3} 
+                        max={cutoffRange[1]} 
                         value={this.props.cutoff} 
-                        onChange={(e) => console.log('cutoff: ' + e.target.value)}
+                        onChange={(e) => {
+                            this.props.updateCutoff(e.target.value);
+                        }}
                     />
 
                 </div>
@@ -204,6 +208,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     updateLogicSettings: updateLogicSettings,
     updateGenSettings: updateGenSettings,
     deriveData:deriveData,
+    loadRaster:loadRaster,
+    updateCutoff:updateCutoff,
+    updateMultiplier:updateMultiplier,
 
 }, dispatch);
 

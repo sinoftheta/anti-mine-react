@@ -11,9 +11,13 @@ export const changeToView = (view) => ({ type: 'CHANGE_VIEW', view: view});
 
 export const updateCutoff = (cutoff) => ({ type: 'UPDATE_CUTOFF', cutoff: cutoff});
 
-export const updateMultiplier = (mult) => ({ type: 'UPDATE_MULTIPLIER', multiplier: multiplier});
+export const updateMultiplier = (multiplier) => ({ type: 'UPDATE_MULTIPLIER', multiplier: multiplier});
+
+
 
 export const setBoardRender = (board) => ({ type: 'UPDATE_BOARD', board: board});
+export const setHP = (hp) => ({ type: 'UPDATE_HP', hp:hp});
+export const setRemainingMines = (mines) => ({ type: 'UPDATE_REMAINING_MINES', mines:mines});
 
 
 //derives datasets needed for gameplay based on settings
@@ -38,14 +42,19 @@ export const deriveData = () => {
 }
 
 
-/* 
+
 // this may need to be called mid game
 export const loadRaster = () => {
     return (dispatch, getState)=> {
+        
+        if(!getState().generalSettings.gradient) return;
+
         let raster = rasterizeGradient(getState().generalSettings.gradient);
         dispatch({type: 'SET_RASTER', raster: raster});
     }
 }
+
+/*
 
 export const loadKernel = () => {
     return (dispatch, getState)=> {

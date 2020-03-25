@@ -35,7 +35,7 @@ export const cutoff = (state = 0.12, action) => {
 export const multiplier = (state = 2, action) => {
     switch(action.type){
         case 'UPDATE_MULTIPLIER':
-            return action.cutoff;
+            return action.multiplier;
         default:
             return state;
     }

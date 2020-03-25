@@ -27,3 +27,7 @@ export const initGenSettings = {
 }
 
 export const kernelTypes = ['taxi','king'];
+
+
+export const multiplierRange = [1.0, 7.0];
+export const cutoffRange = [0.1, 3]

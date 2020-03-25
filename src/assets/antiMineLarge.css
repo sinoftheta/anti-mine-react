@@ -56,7 +56,7 @@
     border-style: solid;
     border-color: #696969 #444444 #444444 #696969; 
     border-width: var(--cell-border);
-    transition: all 49ms ease-in-out;
+    /*transition: all 49ms ease-in-out;*/
 
     box-shadow: 1px 1px 1px #00000085;
 
