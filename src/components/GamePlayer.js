@@ -15,14 +15,17 @@ import Board from './gamecomponents/Board.js';
 import RemainingMines from './gamecomponents/RemainingMines.js';
 import HPBar from './gamecomponents/HPBar.js';
 
+import './GamePlayer.css';
+
 // setup board, cursor, and game instance
-class AntiMine extends Component{
+class GamePlayer extends Component{
     constructor(props){
         super(props);
         this.state = {
             loading: true,
             gameWon: false,
             gameLost: false,
+            initHP: 1,
         }
     }
     componentDidMount(){
@@ -31,14 +34,14 @@ class AntiMine extends Component{
     componentDidUpdate(){
         if(this.state.loading){
             this.loadGame();
-            this.setState({loading: false});
+            this.setState({loading: false, initHP: this.manager.hitpoints});
         }
     }
     loadGame(){
         // instantiate new GameLogic
-        console.log('loading new gameLogic')
-        console.log(this.props.logicSettings)
-        console.log(this)
+        //console.log('loading new gameLogic')
+        //console.log(this.props.logicSettings)
+        //console.log(this.manager.hitpoints)
 
         
 
@@ -55,7 +58,7 @@ class AntiMine extends Component{
         });
 
         this.manager.OnBoardUpdated = () => {
-            console.log('OnBoardUpdated!!'); 
+            //console.log('OnBoardUpdated!!'); 
             this.props.setBoardRender(this.manager.board);
             this.props.setRemainingMines(this.manager.remainingMines);
             this.props.setHP(this.manager.hitpoints);
@@ -80,7 +83,7 @@ class AntiMine extends Component{
                         
                         <div id={'__GAME__remaining-mines'}>{this.props.remainingMines}</div>
                         <RemainingMines/>
-                        <HPBar/>
+                        <HPBar initHP={this.state.initHP}/>
                         <div id={'__GAME__color-controls'}>
 
                             <div>Multiplier</div>
@@ -143,4 +146,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AntiMine);
+export default connect(mapStateToProps, mapDispatchToProps)(GamePlayer);

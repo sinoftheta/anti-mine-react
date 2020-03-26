@@ -74,9 +74,10 @@ class BoardPreview extends Component{
     }
     loadGame(){
         // instantiate new GameLogic
-        console.log('loading new gameLogic')
-        console.log(this.props.logicSettings)
-        console.log(this.props.kernel)
+        //console.log('loading new gameLogic')
+        //console.log(this.props.logicSettings)
+        //console.log(this.props.kernel)
+        //console.log(this.props.haveAntiMines)
 
         //nooed some way to save n...
         let n = Math.floor(Math.random() * (boards.length - 1)) + 1;
@@ -85,7 +86,7 @@ class BoardPreview extends Component{
             ...this.props.logicSettings,
             ...{
                 //custom logic settings
-                presetBoard: this.props.haveAntiMines? boards[0] : boards[3],
+                presetBoard: this.props.haveAntiMines? boards[3] : boards[0],
                 kernel: this.props.kernel,
 
             },

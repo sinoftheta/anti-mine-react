@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 
-import AntiMine from './components/AntiMine.js';
+import GamePlayer from './components/GamePlayer.js';
 import Settings from './components/SettingsMenu.js';
 //import LevelSelect from './components/LevelSelect.js';
 import About from './components/AboutPage.js'
 import Title from './components/TitleScreen.js';
 
 // CSS //
-import './assets/background.css';
+import './index.css';
 
 class App extends PureComponent{
     constructor(props){
@@ -23,7 +23,7 @@ class App extends PureComponent{
         let view;
         switch(this.props.view){
             case 'play':
-                view = <AntiMine/>;
+                view = <GamePlayer/>;
                 break;
             case 'settings':
                 view =  <Settings/>;

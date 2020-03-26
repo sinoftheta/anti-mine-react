@@ -1,6 +1,6 @@
 body{
     margin: 0px;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 #background-checkers{ /* checkers are 4 by 4 px*/
     position: absolute;

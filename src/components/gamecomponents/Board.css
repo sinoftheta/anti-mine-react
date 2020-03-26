@@ -1,31 +1,4 @@
-:root{ /*these can go above their rezspective rules, just be careful with naming conventions*/
-    --cell-size: 50px;
-    --cell-text-size: 0px;
-    --cell-border: 4px;
-    --hover-color: #8a8a8a;
-    --cur-x: 0;
-    --cur-y: 0;
 
-}
-
-#__GAME__grid{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    height: auto;
-    width: min-content;
-
-
-    display: grid;
-    grid-template-columns: calc(var(--cell-size) + 2 * var(--cell-border)) auto;
-    grid-template-rows: auto calc(var(--cell-size) + 2 * var(--cell-border));
-    grid-column-gap: var(--cell-border);
-    grid-row-gap: var(--cell-border);
-
-    justify-content: center;
-}
 #__GAME__board{
     position: relative;
     box-sizing: border-box;

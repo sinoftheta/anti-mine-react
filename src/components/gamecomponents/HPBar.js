@@ -10,10 +10,15 @@ class HPBar extends Component{
         console.log(this.props.hp)
         return(
             <div id={'__GAME__hp-bar-container'}>
-                <div id={'__GAME__hp-bar-animated'}/>
+
+                <div 
+                    id={'__GAME__hp-bar-animated'}
+                    style={{height: `${Math.max(Math.floor( this.props.hp / this.props.initHP ), 0)}%`}}
+                />
+
                 {this.props.showTileValues?
                 <div id={'__GAME__hp-bar-text'}>
-                    {this.props.hp}
+                    {Math.max(this.props.hp, 0)}
                 </div>
                 :null}
             </div>

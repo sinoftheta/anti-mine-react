@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {colorMap} from '../../js/ColorMap.js';
+
+
+import './Board.css';
 // antiMine will be reset by its parent component when its settings prop changes
 class Board extends Component{
     constructor(props){

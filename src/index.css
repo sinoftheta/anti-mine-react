@@ -1,0 +1,9 @@
+:root{ /*these can go above their rezspective rules, just be careful with naming conventions*/
+    --cell-size: 50px;
+    --cell-text-size: 0px;
+    --cell-border: 4px;
+    --hover-color: #8a8a8a;
+    --cur-x: 0;
+    --cur-y: 0;
+
+}
