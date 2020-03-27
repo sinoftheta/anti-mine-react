@@ -7,3 +7,8 @@
     --cur-y: 0;
 
 }
+
+@font-face {
+    font-family: FFF-Forward;
+    src: url('./assets/FFFFORWA.ttf');
+}

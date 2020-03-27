@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import './HPBar.css';
+
 class HPBar extends Component{
     render(){
         console.log(this.props.hp)
@@ -13,7 +15,7 @@ class HPBar extends Component{
 
                 <div 
                     id={'__GAME__hp-bar-animated'}
-                    style={{height: `${Math.max(Math.floor( this.props.hp / this.props.initHP ), 0)}%`}}
+                    style={{height: `${Math.max(Math.floor( 100 * this.props.hp / this.props.initHP ), 0)}%`}}
                 />
 
                 {this.props.showTileValues?

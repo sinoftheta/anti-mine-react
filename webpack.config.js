@@ -20,19 +20,18 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      /*{
-        test: /\.(gif|png|jpe?g|svg)$/i,
+      {
+        test: /\.(woff(2)?|ttf|ttf)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
-          'file-loader',
           {
-            loader: 'image-webpack-loader',
+            loader: 'file-loader',
             options: {
-              bypassOnDebug: true, // webpack@1.x
-              disable: true, // webpack@2.x and newer
-              },
-          },
+              name: '[name].[ext]',
+              outputPath: './fonts/'
+            }
+          }
         ]
-      },*/
+      },
       {
         test: /\.(png|jpg)$/,
         loader: 'url-loader'

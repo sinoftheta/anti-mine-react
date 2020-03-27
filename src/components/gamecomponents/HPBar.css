@@ -1,0 +1,24 @@
+#__GAME__hp-bar-container{
+
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    position: relative;
+}
+#__GAME__hp-bar-animated{
+    box-sizing: border-box;
+    
+    width: 100%;
+
+    border-width: var(--cell-border);
+    border-style: solid;
+    border-color: #f0f0f0 #dddddd #dddddd #f0f0f0; 
+    background-color: #eeeeee;
+
+    box-shadow: 3px 3px 5px #00000085;
+
+    transition: ease-in-out;
+    transition-duration: 420ms;
+}
