@@ -18,6 +18,10 @@ import KernelTool from './gamecomponents/KernelTool.js';
 
 import './GamePlayer.css';
 
+import revealTileAudio1 from "../assets/audio/tile_reveal_1.mp3";
+import revealTileAudio2 from "../assets/audio/tile_reveal_2.mp3";
+import mineHitAudio from "../assets/audio/mine_hit.mp3";
+
 // setup board, cursor, and game instance
 class GamePlayer extends Component{
     constructor(props){
@@ -28,6 +32,11 @@ class GamePlayer extends Component{
             gameLost: false,
             initHP: 1,
         }
+        this.mineHitAudio = React.createRef();
+        this.revealTileAudio1 = React.createRef();
+        this.revealTileAudio2 = React.createRef();
+
+
     }
     componentDidMount(){
         this.props.deriveData();
@@ -45,7 +54,7 @@ class GamePlayer extends Component{
             ...this.props.logicSettings,
             ...{seed: Math.floor(Math.random() * 133742069)},
             ...{
-                    onDamageTaken: () => {console.log('ouch!');},
+                    onDamageTaken: () => {console.log('ouch!'); this.mineHitAudio.current.play()},
                     onGameLost: () => console.log('you lost :('), 
                     onGameWon: () => console.log('you won :)'), 
                     //onTilesUpdated: () => {console.log('all tiles updated'); /*this.props.setBoardRender(this.game.field)*/},
@@ -58,6 +67,12 @@ class GamePlayer extends Component{
             this.props.setBoardRender(this.manager.board);
             this.props.setRemainingMines(this.manager.remainingMines);
             this.props.setHP(this.manager.hitpoints);
+
+            Math.random() > 0.5 ? 
+            this.revealTileAudio1.current.play()
+            :
+            this.revealTileAudio2.current.play()
+            ;
         };
         this.props.setBoardRender(this.manager.board);
         this.props.setRemainingMines(this.manager.remainingMines);
@@ -120,6 +135,10 @@ class GamePlayer extends Component{
                 <button onClick={() => this.loadGame()}>
                     Reset
                 </button>
+
+                <audio ref={this.mineHitAudio} src={mineHitAudio}/>
+                <audio ref={this.revealTileAudio1} src={revealTileAudio1}/>
+                <audio ref={this.revealTileAudio2} src={revealTileAudio2}/>
             </>
             ;
     }
