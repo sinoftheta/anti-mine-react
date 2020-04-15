@@ -8,6 +8,11 @@
     position: relative;
 }
 #__GAME__hp-bar-animated{
+
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+
     box-sizing: border-box;
     
     width: 100%;
@@ -21,4 +26,5 @@
 
     transition: ease-in-out;
     transition-duration: 420ms;
+
 }

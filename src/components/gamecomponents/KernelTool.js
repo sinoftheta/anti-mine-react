@@ -16,11 +16,12 @@ class KernelTool extends Component{
         //remove window listener
     }
     render(){
+        console.log('===kernel tooltip===')
         console.log(this.props.kernel);
         console.log(this.props.currentTile);
         return(
             <>
-
+                <div/>
             </>
         )
     }

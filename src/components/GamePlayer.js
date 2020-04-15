@@ -14,6 +14,7 @@ import GameManager from './../js/GameManager.js';
 import Board from './gamecomponents/Board.js';
 import RemainingMines from './gamecomponents/RemainingMines.js';
 import HPBar from './gamecomponents/HPBar.js';
+import KernelTool from './gamecomponents/KernelTool.js';
 
 import './GamePlayer.css';
 
@@ -38,13 +39,8 @@ class GamePlayer extends Component{
         }
     }
     loadGame(){
+
         // instantiate new GameLogic
-        //console.log('loading new gameLogic')
-        //console.log(this.props.logicSettings)
-        //console.log(this.manager.hitpoints)
-
-        
-
         this.manager = new GameManager({
             ...this.props.logicSettings,
             ...{seed: Math.floor(Math.random() * 133742069)},
@@ -112,6 +108,7 @@ class GamePlayer extends Component{
 
                         </div>
                 </div>
+                <KernelTool/>
 
                 {/* TODO: prompt users before leaving if game in progress */}
                 <button onClick={() => this.props.changeToView('title')}>

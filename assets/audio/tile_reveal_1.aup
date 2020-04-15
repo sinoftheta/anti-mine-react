@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="tile_reveal_1_data" version="1.3.0" audacityversion="2.3.3" sel0="0.0000000000" sel1="0.2000000000" vpos="0" h="0.0000000000" zoom="5445.0000000000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="Audio Track" isSelected="0" height="150" minimized="0" channel="2" linked="0" mute="0" solo="0" rate="44100" gain="0.398107" pan="0.0" colorindex="0">
+		<waveclip offset="-0.04333333" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="8820">
+				<waveblock start="0">
+					<simpleblockfile filename="e0804fea.au" len="8820" min="-0.434903" max="0.447315" rms="0.072102"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="2">
+				<controlpoint t="0.000000000000" val="0.000000100000"/>
+				<controlpoint t="0.055831037649" val="1.133802890778"/>
+			</envelope>
+		</waveclip>
+	</wavetrack>
+</project>
