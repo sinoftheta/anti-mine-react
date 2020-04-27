@@ -28,6 +28,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 .__GAME__tile-covered{
     background: #535353;
@@ -42,6 +47,8 @@
 }
 .__GAME__tile-covered:hover{
     background: var(--hover-color);
+    /*transition-delay: 0ms !important;
+    transition-duration: 69ms !important;*/
 }
 .__GAME__tile-revealed{
     /*I guess I dont actually need any style here?*/

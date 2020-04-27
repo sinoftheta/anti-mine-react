@@ -35,8 +35,6 @@ class GamePlayer extends Component{
         this.mineHitAudio = React.createRef();
         this.revealTileAudio1 = React.createRef();
         this.revealTileAudio2 = React.createRef();
-
-
     }
     componentDidMount(){
         this.props.deriveData();

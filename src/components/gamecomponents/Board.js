@@ -7,14 +7,13 @@ import { bindActionCreators } from 'redux';
 
 import {colorMap} from '../../js/ColorMap.js';
 
-
-
+// total animation length in ms (duration + delay = totalDuration)
+const totalDuration = 500;
 function animationTimings(x, y, width, height/*, centerFirst*/){
     // calculate when and how fast to animate in
     // tiles more central to the board will enter FIRST (or last, depending on centerFirst)
 
-    // total animation length in ms (duration + delay = totalDuration)
-    const totalDuration = 500;
+
 
     const deviation = 0.35;
     
@@ -32,7 +31,6 @@ function animationTimings(x, y, width, height/*, centerFirst*/){
     return {delay: delay, duration: totalDuration - delay};
 }
 
-
 const randTransformDir = () => {
     // `translateY( -1.5 * calc(vars(----cell-size) * ${h}))`,
 
@@ -45,7 +43,6 @@ const randTransformDir = () => {
     return vals[Math.floor(Math.random() * 4)];
 }
 
-
 import './Board.css';
 // antiMine will be reset by its parent component when its settings prop changes
 class Board extends Component{
@@ -53,7 +50,7 @@ class Board extends Component{
         super(props);
 
         this.state={
-            anim: false,
+            offscreen: false,
         }
     }
     shouldComponentUpdate(){
@@ -62,12 +59,10 @@ class Board extends Component{
     }
     render(){
 
-        
-
         console.log("BOARD RENDERING")
         //console.log(this.props.raster);
-        //console.log(this.props.board)
-        //console.log(this.props.renderUncovered)
+        //console.log(this.props.board);
+        //console.log(this.props.renderUncovered);
 
         let tiles = this.props.board.map((row, i) =>
             <div id={"__GAME__row-" + i} className={'__GAME__row'} key={i}>
@@ -76,17 +71,16 @@ class Board extends Component{
                                     tile.value,
                                     this.props.kernelWeight,
                                     this.props.cutoff,
-                                    this.props.multiplier)
+                                    this.props.multiplier);
+
                     //manually adjust color for mines
                     if(tile.isMine && tile.value > 0) n = Math.min( n + 15, 99 );
-
                     if(tile.isMine && tile.value < 0) n = Math.max( n - 15, 0 );
 
-                    //console.log(n)
-                    //console.log(this.props.raster[n])
+                    //console.log(n);
+                    //console.log(this.props.raster[n]);
 
                     let timings = animationTimings(i,j,this.props.board.length, this.props.board[0].length);
-                    
                     
                     return (
                         
@@ -116,19 +110,21 @@ class Board extends Component{
                                 ...tile.isMine ? {color: '#F23B5D' } : {},
 
                                 // WORKS, BUT NEEDS TO ONLY BE ACTIVE WHILE ANIMATING
-                                //animation properties
+                                // animation properties
                                 transitionDelay: timings.delay + 'ms',
                                 transitionDuration: timings.duration + 'ms',
-                                transform: this.state.anim ? randTransformDir() : null,
+
+                                //transitionProperty: 'transform, background, border-color', // also SOMETIMES background... hmmm. use: 'transform, background'
+                                transform: this.state.offscreen ? randTransformDir() : null,
+                                opacity: this.state.offscreen ? 0 : 1, // this hides the scurrying bug lol
+                                //tiles shuffle when they're offscreen and a rerender happens because randTransforDir()
                             }}
                             onClick={() => this.props.click(tile.x, tile.y)}
                         >
                             {this.props.showTileValues && 
                             ( tile.revealed || this.props.renderUncovered ) && 
                             !(tile.value == 0 && !tile.isMine)
-                            
                             ? tile.value : null}
-                            
                         </div>
                 )})}
                 </div>
@@ -140,9 +136,11 @@ class Board extends Component{
             <div id={'__GAME__board'}>
                 {tiles}
             </div>
-            <button
-            onClick={() => this.setState(p => ({anim: !p.anim}))}
-            >fuck</button>
+            <button onClick={() => {
+                this.setState(prev => ({offscreen: !prev.offscreen/*, offscreenTransitioning: true*/}));
+                //setTimeout(() => this.setState({offscreenTransitioning: false}), totalDuration);
+                }}
+            > fuck </button>
             </>
         );
     }
