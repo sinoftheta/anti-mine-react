@@ -1,6 +1,10 @@
 // REACT //
 import React, { Component } from 'react';
 
+// import game logic (vanilla js)
+
+// import canvas logic (vanilla js) 
+
 class BoardCanvas extends Component{
     constructor(props){
         super(props);
